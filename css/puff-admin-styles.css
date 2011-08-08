@@ -1,0 +1,110 @@
+/* >> The Magnificent CLEARFIX: Updated to prevent margin-collapsing on child elements << j.mp/bestclearfix */
+.clearfix:before, .clearfix:after {
+  content: "\0020"; display: block; height: 0; visibility: hidden;	
+} 
+.clearfix:after { clear: both; }
+/* Fix clearfix: blueprintcss.lighthouseapp.com/projects/15318/tickets/5-extra-margin-padding-bottom-of-page */
+.clearfix { zoom: 1; }
+
+
+
+.spathon-where-post-type {padding: 10px; background: #fff; border: 1px solid #eee; margin: 10px 0;}
+
+.spathon-where-row { border-bottom: 1px solid #efefef; line-height: 28px; padding: 3px 0 0;}
+.spathon-where-row:hover {background: #f5f5f5;}
+.spathon-where-col {float: left; width: 50%;}
+.spathon-where-col-1 {clear: left;}
+
+.spathon-where-header {line-height: 1.2; padding: 0 0 5px; border-color: #ccc;}
+.spathon-where-header .spathon-where-col-1 {text-transform: capitalize;}
+
+.spathon-where-list {}
+
+
+
+
+/************************************************************/
+/*
+/*
+/*   Edit.php?post_type=puffar
+/*
+/*
+/************************************************************/
+.puff-all-pages {display: none;}
+.puff-all-pages-open {display: block;}
+
+
+
+
+/****************************************/
+/*
+/*   Settings page
+/*
+/****************************************/
+.spathon-clone-area {display: none;}
+.spathon-remove-area {text-decoration: none;}
+.spathon-remove-area img {vertical-align: middle;}
+.spathon-remove-area span {display: none;}
+.spathon-remove-area:hover span {display: inline;}
+
+
+
+
+
+/****************************************/
+/*
+/*   Post type edit
+/*
+/****************************************/
+
+.ps-puff-area { clear: both; margin: 0 0 20px;}
+.ps-puff-area-title { text-transform: uppercase; margin: 0 0 5px; }
+.ps-puff-sort-area {min-height: 5px;}
+
+.puff-state-highlight {height: 30px; width: 100%; border: 1px dashed #ccc; margin: 0 0 10px; background: #eee; -moz-border-radius: 3px;-khtml-border-radius: 3px;-webkit-border-radius: 3px;border-radius: 3px;}
+
+.ps-post-puff { border: 1px solid #ddd; margin: 0 0 10px; overflow: hidden;
+     -moz-border-radius: 3px; -webkit-border-radius: 3px; border-radius: 3px;      
+     -moz-background-clip: padding; -webkit-background-clip: padding-box; background-clip: padding-box; 
+}
+/* Handles */
+.ps-puff-add-remove,
+.ps-puff-handle { float: right; width: 27px; height: 30px; cursor: pointer; position: relative; text-align: center; line-height: 30px; }
+.ps-puff-add-remove { display: none; }
+#puffar .ps-post-puff:hover .ps-puff-handle-remove,
+#addPuffBoxWrap .ps-post-puff:hover .ps-puff-handle-add { display: block; border-left: 1px solid #fff;}
+.ps-puff-add-remove:hover { background: #eee; color: #191 }
+
+#puffar .ps-puff-add-remove:hover { color: #911; }
+.ps-post-puff:hover .ps-puff-handle:after { content: "\0020"; height: 0; width: 0; border: 4px solid #cccccc; border-color: #cccccc transparent transparent; position: absolute; top: 50%; left: 50%; margin: 0 0 0 -4px;}
+#puffar .ps-post-puff-title { font-size: 12px; padding: 9px 5px; border: none; }
+.ps-post-puff-content { background: #fff; padding: 5px; border-top: 1px solid #dfdfdf; display: none;}
+
+
+.ps-add-puff-button .ps-post-puff-title { text-align: center; cursor: pointer; color: #21759b;
+	-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+	filter: alpha(opacity=50); /* internet explorer */
+	-khtml-opacity: 0.5;      /* khtml, old safari */
+	-moz-opacity: 0.5;       /* mozilla, netscape */
+	opacity: 0.5;           /* fx, safari, opera */
+}
+.ps-add-puff-button:hover .ps-post-puff-title { -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";filter: alpha(opacity=100); -khtml-opacity: 1; -moz-opacity: 1; opacity: 1; color: #d54e21; }
+
+
+
+#addPuffBox {display: none;}
+#addPuffBoxWrap { padding: 10px 0;}
+.ps-puff-handle-add:hover { background: #eee; color: #191 }
+#addPuffBoxWrap .ps-post-puff-title { padding: 7px 10px; margin: 0; 
+  background-color: #f9f9f9;
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#f9f9f9), to(#ededed)); /* Saf4+, Chrome */
+  background-image: -webkit-linear-gradient(top, #f9f9f9, #ededed); /* Chrome 10+, Saf5.1+ */
+  background-image:    -moz-linear-gradient(top, #f9f9f9, #ededed); /* FF3.6 */
+  background-image:     -ms-linear-gradient(top, #f9f9f9, #ededed); /* IE10 */
+  background-image:      -o-linear-gradient(top, #f9f9f9, #ededed); /* Opera 11.10+ */
+  background-image:         linear-gradient(top, #f9f9f9, #ededed);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#f9f9f9', EndColorStr='#ededed'); /* IE6–IE9 */
+
+}
+#addPuffBoxWrap .ps-post-puff { }
+
