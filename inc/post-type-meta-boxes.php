@@ -115,7 +115,7 @@ function spathon_sort_puffar_on_page(){
 			<?php
 			$args = array(
 				'post_type' => 'puffar',
-				'numberposts' => 20,
+				'numberposts' => -1,
 				'exclude' => implode(',', $exclude_puffar)
 			);
 			$new_puffar = get_posts($args);

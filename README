@@ -18,7 +18,6 @@ The plugin started as an fast and easy way to add puffar on small sites. It is i
 
 Languages:
 * English
-* Swedish
 
 Don't see your language on the list? Feel free to translate.
 
@@ -29,7 +28,7 @@ Don't see your language on the list? Feel free to translate.
 * Upload the files to wp-content/plugins/
 * Activate the plugin
 * Go to Puffar -> settings in the admin menu and select the post types you want to use puffar on
-* Now itís just start creating ìPuffarî
+* Now itís just start creating Puffar
 
 
 
