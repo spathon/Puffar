@@ -31,7 +31,7 @@ function spathon_register_post_type_puffar(){
 			'editor',
 			#'author',
 			'thumbnail',
-			#'excerpt',
+			'excerpt',
 			#'custom-fields',
 			#'trackbacks',
 			#'comments',

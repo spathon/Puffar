@@ -39,7 +39,7 @@
 			var $this = $(this),
 				toArray = $this.sortable('toArray');
 				
-				console.log(toArray);
+				//console.log(toArray);
 				
 				$this.parent().find('.ps-puff-input-order').val(toArray);
 			
@@ -66,6 +66,8 @@
 		
 		/**
 		 * Edit.php?post_type=puffar
+		 *
+		 * Show all pages where the puff is shown (ct-column)
 		 */
 		$('.puff-more-pages').click(function(){
 			$(this).next().next().toggleClass('puff-all-pages');
@@ -76,9 +78,23 @@
 		
 	
 		
+		// Check all pages
+		$('.spathon-check-all').change(function(){
+			
+			var $this = $(this),
+				$checkboxes = $this.closest('.spathon-where-post-type').find('.spathon-where-list-page:visible input');
+			
+			if($this.is(':checked')){
+				$checkboxes.attr('checked', 'checked');
+			}else{
+				$checkboxes.removeAttr('checked');
+			}
+		});
+		
+		
 		/**
 		 * Pager on puff edit
-		 */
+		 *
 		var $pagers = $('.spathon-where-pager');
 		$pagers.each(function(){
 			
@@ -104,7 +120,8 @@
 					var	data = {
 							offset: offset,
 							post_type: post_type,
-							action: 'spathon_ajax_puff_where_pager'
+							action: 'spathon_ajax_puff_where_pager',
+							curr_puff_id: $('#post_ID').val()
 						};
 					
 		
@@ -125,7 +142,7 @@
 				return false;
 			});
 		});
-		
+		*/
 		
 		
 		
@@ -207,15 +224,22 @@
 		
 		
 		$('.ps-add-puff-button').click(function(){
-			
 			var height = ($(window).height() - 90);
 			tb_show('', '#TB_inline?height='+ height +'&width=640&inlineId=addPuffBox');
 			
 			$curr_add_button = $(this);
 			
 		});
-	
 		
+		// create a new puff
+		/*
+		$('#create_a_new_puff_button').click(function() {
+			$('#create_a_new_puff').toggleClass('show-create-new-puff-form');
+			if($('#create_a_new_puff').hasClass('show-create-new-puff-form')){
+				tinyMCE.execCommand("mceAddControl", false, "ps_add_new_puff_content");
+			}
+		});
+		*/
 		
 		
 		/**
@@ -259,6 +283,116 @@
 			save_the_puff_order($sidebars);
 		});
 	
+		
+		
+		
+		
+		
+		
+		
+		/**************************************************
+		 *
+		 *   v 0.2
+		 *
+		 **************************************************/
+		 
+		/**
+		 * Open a lightbox to select pages
+		 *
+		$('.puff-add-more-posts').click(function(){
+			var post_type = $(this).attr('data-post_type');
+			$('.puff-posts-list-'+ post_type).stop(true,true).slideToggle(400);
+			return false;
+		});
+		*/
+		
+		var setItemsAsAlreadyAdded = function(){
+			var $all_post_ids = $('#psPuff_all_post_ids');
+			if($all_post_ids.length > 0){
+				var all_post_ids = $all_post_ids.text().split(','),
+					count_ids = all_post_ids.length,
+					i;
+				for(i = 0; i < count_ids; i++){
+					$('.psPuff-add-post-to-puff[data-id="'+ all_post_ids[i] +'"]').addClass('psPuff-page-in-use');
+				}
+			}
+		}
+		setItemsAsAlreadyAdded();
+		/**
+		 * Pager
+		 */
+		var $pagers = $('.spathon-where-pager');
+		$pagers.each(function(){
+			var $this = $(this),
+				post_type = $this.attr('data-post-type'),
+				$list_wrapper = $('#puff_list_posts_wrapper_'+ post_type);
+				
+			$this.find('a').click(function(){
+				
+				var $pagerA = $(this),
+					offset = $pagerA.attr('data-id'),
+					$page = $('#spathon_where_offset_'+ offset +'_type_'+ post_type);
+				
+				$list_wrapper.find('.spathon-where-list-page').hide();
+				
+				// if the page has been loaded show it else load it
+				if($page.length > 0){
+					$page.show();
+				}else{
+					var	data = {
+						offset: offset,
+						post_type: post_type,
+						action: 'spathon_ajax_puff_where_pager2',
+						curr_puff_id: $('#post_ID').val()
+					};
+					$.ajax({
+						type: "POST",
+						url: ajaxurl,
+						data: data,
+						success: function(msg){
+							$list_wrapper.prepend(msg);
+							setItemsAsAlreadyAdded();
+						}
+					});
+				}
+				$pagerA.addClass('disabled').siblings('a').removeClass('disabled');
+				return false;
+			});
+			
+		});
+		
+		
+		/**
+		 * Add slide
+		 */
+		$(document.body).delegate('.psPuff-add-post-to-puff', 'click', function(){
+			if($(this).hasClass('psPuff-page-in-use')) return;
+			var	post_type = $(this).attr('data-post_type'),
+				data = {
+					action: 'spathon_ajax_add_page_to_puff',
+					id: $(this).attr('data-id')
+				};
+			$(this).addClass('psPuff-page-in-use');
+			$.ajax({
+				type: "POST",
+				url: ajaxurl,
+				data: data,
+				success: function(msg){
+					$('#spathon_where_wrapper_'+ post_type ).append(msg);
+				}
+			});
+		});
+		
+		$(document.body).delegate('.psPuff-remove-post', 'click', function(){
+			var $this = $(this),
+				id = $this.attr('data-id'),
+				$all = $('#psPuff_all_post_ids'),
+				all = $all.text();
+			$this.closest('.spathon-where-single-post').remove();
+			$('.psPuff-add-post-to-puff[data-id="'+ id +'"]').removeClass('psPuff-page-in-use');
+			// remove from the array
+			$all.text(all.replace(','+id, '').replace(id+',', '').replace(id, ''));
+		});
 		
 		
 	});

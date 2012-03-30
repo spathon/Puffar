@@ -45,62 +45,38 @@ class SpathonPuffWidget extends WP_Widget {
 					$post->ID, $where ) );
 			$puff_ids = array();
 			
+			
 			foreach($puffar as $puff){
-				$puff_ids[] = $puff->puff_id;
+				if($puff->puff_id > 0) $puff_ids[] = $puff->puff_id;
 			}
 			
 			
 			if(!empty($puff_ids)):
-				$args = array(
-					'post_type' => 'puffar',
-					'posts_per_page' => -1,
-					'post__in' => $puff_ids
-				);
-
-				// The Query
-				$the_query = new WP_Query( $args );
-
-				// The Loop
-				while ( $the_query->have_posts() ) : $the_query->the_post();
-
-					$puff_meta = get_post_meta($post->ID, '_puff_meta', true);
-
-					// the puff template
-					$template = (isset($puff_meta['template'])) ? $puff_meta['template'] : false; 
-
-					echo $before_widget;
-
-					if($template && file_exists(TEMPLATEPATH.'/'.$template)){
-						include(TEMPLATEPATH.'/'.$template);
-					// puff template
-					}elseif(file_exists(TEMPLATEPATH.'/puff.php')){
-						include(TEMPLATEPATH.'/puff.php');
-					// default template
-					}else{
-
-						if(has_post_thumbnail()){ the_post_thumbnail(); }
-
-						echo $before_title;
-								the_title();
-						echo $after_title;
-
-						echo '<div class="puff-content">';
-							the_content();
-						echo '</div>';
-
-						if(is_user_logged_in() && current_user_can('edit_post')){
-							echo '<a class="edit-puff-link" href="'.get_edit_post_link($post->ID).'">Edit</a>';
-						}
-
-					}// end puff mall
-
-					echo $after_widget;
-
-				endwhile;
-
-				// Reset Post Data
-				wp_reset_postdata();
 				
+				$i = 0;
+				// tmp fix for order
+				foreach($puff_ids as $pid):
+					
+					$i++;
+					$args = array(
+						'post_type' => 'puffar',
+						'posts_per_page' => -1,
+						'p' => $pid
+					);
+	
+					// The Query
+					$the_query = new WP_Query( $args );
+	
+					// The Loop
+					while ( $the_query->have_posts() ) : $the_query->the_post();
+	
+						include( SPATHON_PUFFAR_DIR .'widget-template.php' );
+	
+					endwhile;
+	
+					// Reset Post Data
+					wp_reset_postdata();
+				endforeach;
 			endif; // if no results were found
 		else:
 			

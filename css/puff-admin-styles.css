@@ -12,11 +12,13 @@
 
 .spathon-where-row { border-bottom: 1px solid #efefef; line-height: 28px; padding: 3px 0 0;}
 .spathon-where-row:hover {background: #f5f5f5;}
-.spathon-where-col {float: left; width: 50%;}
+.spathon-where-col {float: left; width: 45%;}
 .spathon-where-col-1 {clear: left;}
 
 .spathon-where-header {line-height: 1.2; padding: 0 0 5px; border-color: #ccc;}
 .spathon-where-header .spathon-where-col-1 {text-transform: capitalize;}
+
+.puff-page-parent { color: #aaa; font-size: 10px; }
 
 .spathon-where-list {}
 
@@ -107,4 +109,52 @@
 
 }
 #addPuffBoxWrap .ps-post-puff { }
+
+
+
+
+/*  Add a totaly new puff
+/*****************************/
+.ps-add-new-puff { display: none; }
+.show-create-new-puff-form { display: block; }
+
+
+
+
+
+
+
+
+
+
+
+
+/**************************************************
+ *
+ *   v 0.2
+ *
+ **************************************************/
+.puff-posts-list-wrapper { position: relative; }
+.AAApuff-posts-list-wrapper:after { z-index: 12321; content: "Scroll"; display: block; position: absolute; bottom: 28px; left: 50%; font-size: 10px;
+    margin: 0 0 0 -17px; width: 34px; line-height: 15px; background: #fff; text-align: center; border: 1px dashed #ccc}
+.puff-posts-list { min-height: 350px; overflow: auto; border: 1px dashed #ccc; background: url(../images/ajax-loader.gif) no-repeat center 40px; }
+.spathon-where-list-page { font-sisze: 14px; backgroaund: #efe;  }
+.spathon-where-list-page ul { overflow: hidden; margin: 0; padding: 0; }
+.psPuff-posts-to-add { margin: 0; }
+.psPuff-add-post-to-puff { border-top: 1px solid #ddd; padding: 7px 10px; background: #fafafa; }
+.spathon-where-list-page > ul > .psPuff-posts-to-add:first-child .psPuff-add-post-to-puff { border: none; }
+.psPuff-add-post-to-puff:hover { background: #eee; cursor: pointer; }
+.spathon-where-list-page ul ul .psPuff-add-post-to-puff { padding: 7px 20px; }
+.spathon-where-list-page ul ul ul .psPuff-add-post-to-puff { padding: 7px 30px; }
+
+.psPuff-page-in-use,
+.psPuff-page-in-use:hover { color: #999; cursor: default; background: #fafafa; }
+
+.spathon-where-row { position: relative; }
+.psPuff-remove-post { position: absolute; top: 3px; right: 0px; display: none; cursor: pointer; }
+.psPuff-remove-post:hover { color: #911 }
+.spathon-where-row:hover .psPuff-remove-post { display: block; }
+
+#TB_window .spathon-where-pager .disabled { background: #fff }
+
 

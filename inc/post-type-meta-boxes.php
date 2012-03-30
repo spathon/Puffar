@@ -56,7 +56,7 @@ function spathon_sort_puffar_on_page(){
 	// order puffar by area
 	foreach($puffar as $puff){
 		// if the order isn't set
-		$order = ($puff->puff_order) ? $puff->puff_order : $i++;
+		$order = ($puff->puff_order && $puff->puff_order != 1000) ? $puff->puff_order : $i++;
 		$puffar_in_order[$puff->puff_where][$order] = $puff;
 	}
 	
@@ -109,9 +109,19 @@ function spathon_sort_puffar_on_page(){
 		
 	</div>
 	
+	
 	<!-- thickbox with puffar to add -->
 	<div id="addPuffBox">
 		<div id="addPuffBoxWrap">
+			<?php /*
+			<a href="#" id="create_a_new_puff_button"><?php _e('Create a new puff'); ?></a>
+			<div class="ps-add-new-puff" id="create_a_new_puff">
+				<h2><?php _e('Title', 'ps_puffar_lang'); ?></h2>
+				<input type="text" name="ps_add_new_puff_title" id="ps_add_new_puff_title" />
+				<textarea id="ps_add_new_puff_content" name="ps_add_new_puff_content" class="mceEditor"></textarea>
+			</div>
+			 */ ?>
+			
 			<?php
 			$args = array(
 				'post_type' => 'puffar',
@@ -141,15 +151,19 @@ function spathon_sort_puffar_on_page(){
  */
 function spathon_post_puff_template($puff){
 	
+	$meta = get_post_meta($puff->ID, '_puff_meta', true);
+	
 	?>
 	<div class="ps-post-puff" id="ps_puff_<?php echo $puff->ID; ?>" data-id="<?php echo $puff->ID; ?>">
 		<div class="ps-puff-handle-add ps-puff-add-remove" title="<?php _e('Add puff', 'ps_puffar_lang'); ?>">+</div>
 		<div class="ps-puff-handle-remove ps-puff-add-remove" title="<?php _e('Remove puff', 'ps_puffar_lang'); ?>">-</div>
 		<div class="ps-puff-handle" title="<?php _e('Click to show/hide content', 'ps_puffar_lang'); ?>"><br></div>
 		
-		<h3 class="ps-post-puff-title"><?php echo $puff->post_title; ?></h3>
+		<h3 class="ps-post-puff-title">
+			<?php echo (!empty($puff->post_title)) ? $puff->post_title : $puff->ID; ?>
+		</h3>
 		<div class="ps-post-puff-content">
-			<?php echo substr(strip_tags($puff->post_content), 0, 100); ?>
+			<?php echo $puff->post_content; ?>
 		</div>
 	</div>
 	<?php
