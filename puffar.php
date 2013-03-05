@@ -148,7 +148,7 @@ require_once('single-puff-widget.php'); // and finaly the widget
  */
 add_action('plugins_loaded', 'spathon_load_translation');
 function spathon_load_translation(){
-	load_plugin_textdomain('ps_puffar_lang', false, 'ps_puffar/lang');
+	load_plugin_textdomain('ps_puffar_lang', false, dirname( plugin_basename( __FILE__ ) ) . '/lang/');
 }
 
 
